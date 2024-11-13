@@ -6,7 +6,7 @@ import MainLayout from '@/components/main-layout'
 
 export default function AgentChatPage() {
   const params = useParams()
-  const { id } = params
+  const id = params?.id
 
   return (
     <MainLayout>

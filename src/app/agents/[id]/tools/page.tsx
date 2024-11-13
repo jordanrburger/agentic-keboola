@@ -11,7 +11,8 @@ import MainLayout from '@/components/main-layout'
 import ToolsComponent from '@/components/tools-component'
 
 export default function AgentToolsPage() {
-  const { id: agentId } = useParams()
+  const params = useParams()
+  const agentId = params?.id
 
   return (
     <MainLayout>

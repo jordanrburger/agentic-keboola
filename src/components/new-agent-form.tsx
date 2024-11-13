@@ -21,12 +21,26 @@ export default function NewAgentForm() {
   const [agentName, setAgentName] = useState('')
   const [agentDescription, setAgentDescription] = useState('')
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Handle agent creation logic here
-    // For example, send a POST request to your API
-    // After creation, redirect to the new agent's details page
-    router.push('/agents')
+
+    // Send a POST request to the API route
+    const res = await fetch('/api/agents', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name: agentName, description: agentDescription }),
+    })
+
+    if (res.ok) {
+      const newAgent = await res.json()
+      // Redirect to the agents list page
+      router.push(`/agents`)
+    } else {
+      // Handle error
+      console.error('Failed to create agent')
+    }
   }
 
   return (
@@ -56,6 +70,7 @@ export default function NewAgentForm() {
                   onChange={(e) => setAgentName(e.target.value)}
                   placeholder="Enter agent name"
                   className="mt-1 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100"
+                  required
                 />
               </div>
               <div>
@@ -71,6 +86,7 @@ export default function NewAgentForm() {
                   onChange={(e) => setAgentDescription(e.target.value)}
                   placeholder="Enter agent description"
                   className="mt-1 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100"
+                  required
                 />
               </div>
               <div className="flex justify-end">

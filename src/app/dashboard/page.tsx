@@ -13,6 +13,9 @@ import {
   Users,
 } from 'lucide-react'
 import Image from "next/image"
+import Link from "next/link"
+
+
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -130,9 +133,9 @@ export default function Dashboard() {
             <div className="flex-1">
               <Input
                 placeholder="How can I help you?"
-                className="mb-4 bg-white/20 text-white placeholder-white/70 sm:mb-0 sm:mr-4"
+                className="mb-4 bg-white/20 text-white placeholder-white/70 sm:mb-4"
               />
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-4">
                 <Button variant="secondary" className="h-auto whitespace-normal bg-white/10 p-4 text-left text-sm text-white hover:bg-white/20">
                   Give me revenue projections for our next fiscal year
                 </Button>
@@ -156,7 +159,7 @@ export default function Dashboard() {
             </div>
             <div className="flex gap-2">
               <Button>DETAILS</Button>
-              <Button variant="outline">CLOSE</Button>
+              <Button variant="outline" className="text-white dark:text-white-200">CLOSE</Button>
             </div>
           </div>
           <div className="flex items-center justify-between rounded-lg border bg-white dark:bg-gray-800 p-4">
@@ -166,7 +169,7 @@ export default function Dashboard() {
             </div>
             <div className="flex gap-2">
               <Button>DETAILS</Button>
-              <Button variant="outline">CLOSE</Button>
+              <Button variant="outline" className="text-white dark:text-white-200">CLOSE</Button>
             </div>
           </div>
         </div>
@@ -201,7 +204,14 @@ export default function Dashboard() {
                 <div>
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-gray-800 dark:text-gray-100">online_orders</span>
-                    <span className="text-sm text-red-600">There have been fewer orders this week.</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-red-600">There have been fewer orders this week.</span>
+                      <Link href="/agents/new?anomaly=online_orders">
+                        <Button size="sm" variant="secondary" className="px-3 bg-green-500 hover:bg-green-600 text-white">
+                          Launch Agent
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                   <ResponsiveContainer width="100%" height={100}>
                     <LineChart data={onlineOrdersData}>
@@ -228,7 +238,14 @@ export default function Dashboard() {
                 <div>
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-gray-800 dark:text-gray-100">website_visitors</span>
-                    <span className="text-sm text-green-600">Website visits hit a new all-time high this month.</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-green-600">Website visits hit a new all-time high this month.</span>
+                      <Link href="/agents/new?anomaly=website_visitors">
+                        <Button size="sm" variant="secondary" className="px-3 bg-green-500 hover:bg-green-600 text-white">
+                          Launch Agent
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                   <ResponsiveContainer width="100%" height={100}>
                     <LineChart data={websiteVisitorsData}>

@@ -30,9 +30,11 @@ import {
 
 import MainLayout from '@/components/main-layout'
 import ToolsComponent from '@/components/tools-component'
-
 export default function ToolsPage() {
   const searchParams = useSearchParams()
+  if (!searchParams) {
+    return null
+  }
   const agentId = searchParams.get('agentId')
 
   return (

@@ -116,16 +116,16 @@ export default function HomePage() {
         </header>
 
         {/* Home Content */}
-        <div className="p-6 space-y-6">
+        <div className="p-12 space-y-8">
           {/* Introductory Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="text-xl font-semibold text-blue-600">
                   Define Intent
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4">
                 <p className="text-gray-700 dark:text-gray-300">
                   Simply articulate your goals—from financial optimization to inventory management. Our platform translates your objectives into actionable workflows automatically.
                 </p>
@@ -133,12 +133,12 @@ export default function HomePage() {
             </Card>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="text-xl font-semibold text-green-600">
                   Leverage Primitives
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4">
                 <p className="text-gray-700 dark:text-gray-300">
                   Build powerful solutions using our core components—extractors, writers, transformations, orchestrators, and storage—combined intelligently to create autonomous workflows.
                 </p>
@@ -146,12 +146,12 @@ export default function HomePage() {
             </Card>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="text-xl font-semibold text-purple-600">
                   Visualize Actions
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4">
                 <p className="text-gray-700 dark:text-gray-300">
                   Monitor agent behavior through dynamic action graphs, providing real-time visual mapping of processes and identifying optimization opportunities.
                 </p>
@@ -159,12 +159,12 @@ export default function HomePage() {
             </Card>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <CardTitle className="text-xl font-semibold text-orange-600">
                   Evolve & Customize
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4">
                 <p className="text-gray-700 dark:text-gray-300">
                   Adapt and refine your automation as needs change. Agents learn from historical data while you maintain full control to customize workflows.
                 </p>
@@ -174,35 +174,13 @@ export default function HomePage() {
 
           {/* Value Proposition */}
           <Card className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-            <CardContent>
+            <CardContent className="p-8">
               <h3 className="text-2xl font-bold mb-4">Realize Concrete Value</h3>
               <p className="text-lg opacity-90">
                 Transform your data from a passive resource into an active, value-generating force. Let intelligent agents handle repetitive tasks while you focus on innovation, strategy, and growth.
               </p>
             </CardContent>
           </Card>
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap justify-center space-x-4">
-            <Link
-              href="/tools"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
-            >
-              Explore Our AI Tools
-            </Link>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 transition-colors"
-            >
-              View Dashboard
-            </Link>
-            <Link
-              href="/agents"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 transition-colors"
-            >
-              Manage Agents
-            </Link>
-          </div>
         </div>
       </main>
     </div>

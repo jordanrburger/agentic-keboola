@@ -1,21 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import {
-  Bell,
-  ChevronDown,
-  CpuIcon,
-  LayoutDashboard,
-  LogOut,
-  MessageSquare,
-  MoreHorizontal,
-  Plus,
   Search,
-  Settings,
-  Users,
+  Plus,
+  MoreHorizontal,
+  MessageSquare,
 } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -28,7 +20,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
@@ -50,25 +41,40 @@ import {
 } from '@/components/ui/table'
 import MainLayout from '@/components/main-layout'
 
-const agents = [
-  { id: 1, name: 'Agent-001', type: 'Data Processor', status: 'Active', lastActive: '2 minutes ago' },
-  { id: 2, name: 'Agent-015', type: 'Model Trainer', status: 'Idle', lastActive: '1 hour ago' },
-  { id: 3, name: 'Agent-007', type: 'Anomaly Detector', status: 'Active', lastActive: '5 minutes ago' },
-  { id: 4, name: 'Agent-022', type: 'Report Generator', status: 'Maintenance', lastActive: '1 day ago' },
-  { id: 5, name: 'Agent-033', type: 'Data Collector', status: 'Active', lastActive: '1 minute ago' },
-  { id: 6, name: 'Agent-044', type: 'Predictive Analyzer', status: 'Idle', lastActive: '3 hours ago' },
-  { id: 7, name: 'Agent-055', type: 'Task Scheduler', status: 'Active', lastActive: '10 minutes ago' },
-  { id: 8, name: 'Agent-066', type: 'Data Visualizer', status: 'Maintenance', lastActive: '2 days ago' },
-]
+type Agent = {
+  id: string
+  name: string
+  description: string
+  type: string
+  status: string
+  lastActive: string
+}
 
 export default function AgentsPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
+  const [agents, setAgents] = useState<Agent[]>([])
+
+  useEffect(() => {
+    // Fetch agents from API
+    const fetchAgents = async () => {
+      const res = await fetch('/api/agents')
+      if (res.ok) {
+        const data = await res.json()
+        setAgents(data)
+      } else {
+        console.error('Failed to fetch agents')
+      }
+    }
+
+    fetchAgents()
+  }, [])
 
   const filteredAgents = agents.filter(
     (agent) =>
       agent.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (statusFilter === 'all' || agent.status.toLowerCase() === statusFilter.toLowerCase())
+      (statusFilter === 'all' ||
+        agent.status.toLowerCase() === statusFilter.toLowerCase())
   )
 
   return (
@@ -76,9 +82,11 @@ export default function AgentsPage() {
       <div className="p-6 text-gray-900 dark:text-gray-100">
         <Card className="bg-white dark:bg-gray-800">
           <CardHeader>
-            <CardTitle className="text-gray-800 dark:text-gray-100">Manage Agents</CardTitle>
+            <CardTitle className="text-gray-800 dark:text-gray-100">
+              Manage Agents
+            </CardTitle>
             <CardDescription className="text-gray-600 dark:text-gray-400">
-              View and manage your Agentic Keboola agents
+              View and manage your agents
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -99,9 +107,9 @@ export default function AgentsPage() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Statuses</SelectItem>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="idle">Idle</SelectItem>
-                    <SelectItem value="maintenance">Maintenance</SelectItem>
+                    <SelectItem value="Active">Active</SelectItem>
+                    <SelectItem value="Idle">Idle</SelectItem>
+                    <SelectItem value="Maintenance">Maintenance</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -116,11 +124,21 @@ export default function AgentsPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="text-gray-800 dark:text-gray-100">Name</TableHead>
-                  <TableHead className="text-gray-800 dark:text-gray-100">Type</TableHead>
-                  <TableHead className="text-gray-800 dark:text-gray-100">Status</TableHead>
-                  <TableHead className="text-gray-800 dark:text-gray-100">Last Active</TableHead>
-                  <TableHead className="text-gray-800 dark:text-gray-100">Actions</TableHead>
+                  <TableHead className="text-gray-800 dark:text-gray-100">
+                    Name
+                  </TableHead>
+                  <TableHead className="text-gray-800 dark:text-gray-100">
+                    Type
+                  </TableHead>
+                  <TableHead className="text-gray-800 dark:text-gray-100">
+                    Status
+                  </TableHead>
+                  <TableHead className="text-gray-800 dark:text-gray-100">
+                    Last Active
+                  </TableHead>
+                  <TableHead className="text-gray-800 dark:text-gray-100">
+                    Actions
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -131,7 +149,9 @@ export default function AgentsPage() {
                         {agent.name}
                       </Link>
                     </TableCell>
-                    <TableCell className="text-gray-800 dark:text-gray-100">{agent.type}</TableCell>
+                    <TableCell className="text-gray-800 dark:text-gray-100">
+                      {agent.type}
+                    </TableCell>
                     <TableCell>
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -145,11 +165,17 @@ export default function AgentsPage() {
                         {agent.status}
                       </span>
                     </TableCell>
-                    <TableCell className="text-gray-800 dark:text-gray-100">{agent.lastActive}</TableCell>
+                    <TableCell className="text-gray-800 dark:text-gray-100">
+                      {agent.lastActive}
+                    </TableCell>
                     <TableCell>
                       <div className="flex gap-2">
                         <Link href={`/agents/${agent.id}/chat`}>
-                          <Button variant="outline" size="sm">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-white dark:text-white"
+                          >
                             <MessageSquare className="mr-1 h-4 w-4" />
                             Chat
                           </Button>
@@ -161,7 +187,10 @@ export default function AgentsPage() {
                               <MoreHorizontal className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                             </Button>
                           </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end" className="bg-white dark:bg-gray-800">
+                          <DropdownMenuContent
+                            align="end"
+                            className="bg-white dark:bg-gray-800"
+                          >
                             <DropdownMenuItem className="text-gray-800 dark:text-gray-100">
                               View Details
                             </DropdownMenuItem>
